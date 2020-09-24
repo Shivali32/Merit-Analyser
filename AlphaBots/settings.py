@@ -27,7 +27,7 @@ SECRET_KEY = '@f42coq)%=s(8$o)k0z@#ecg)&y6906hkb93gg9@43^))&r%)#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['http://hsalphabots.herokuapp.com/']
+ALLOWED_HOSTS = ['http://hsalphabots.herokuapp.com']
 
 
 # Application definition
