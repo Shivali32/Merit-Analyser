@@ -1,1 +1,1 @@
-web: gunicorn bloom_django.wsgi
+web: gunicorn AlphaBots.wsgi:application --log-file -
