@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
+import django_heroku
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -27,7 +27,7 @@ SECRET_KEY = '@f42coq)%=s(8$o)k0z@#ecg)&y6906hkb93gg9@43^))&r%)#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['http://hsalphabots.herokuapp.com']
 
 
 # Application definition
@@ -125,3 +125,4 @@ STATIC_URL = '/static/'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR,"MeritAnalyser","static"),)
 
+django_heroku.settings(locals())
