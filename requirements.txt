@@ -10,3 +10,4 @@ whitenoise==5.1.0
 django-mysql==3.8.1
 passlib==1.7.2
 plotly==4.7.1
+pandas
