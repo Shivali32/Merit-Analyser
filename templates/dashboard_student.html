@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  {% include "header.html" %}
+  {%load static%}
+  
+
+  <title>Student Report</title>
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+
+  <div class="site-section ftco-subscribe-1 site-blocks-cover pb-4" style="background-image: url({%static 'images/bg_1.jpg' %})">
+    <div class="container" style="margin-top: 100px;">
+      <div class="row align-items-end">
+        <div class="col-lg-7">
+          <h2 class="mb-0">Analysis</h2>
+          <p>These are some of the Analytics made based on previous records.<a href="/login">Log In</a> to Analyse your own!!</p>
+        </div>
+      </div>
+    </div>
+  </div> 
+  
+  <div id="wrapper" style="margin: 100px;">
+       
+        <div class="container-fluid">
+
+          <div class="row">
+            <div class="col-xl-7">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Student records</h6>
+                </div>
+                <div class="card-body">
+                  <div class="chart-area">
+                    <canvas id="myAreaChart"></canvas>
+                  </div>
+                  <hr>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-5">
+
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Std img</h6>
+                </div>
+                <div class="card-body">
+                  <div class="chart-area">
+                    <canvas id="myAreaChart"></canvas>
+                  </div>
+                  <hr>
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+
+            <div class="col-xl-12">
+            
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Subject Name Tests</h6>
+                </div>
+                <div class="card-body">
+                  <div class="chart-area">
+                    <canvas id="myAreaChart"></canvas>
+                  </div>
+                  <hr>
+                  
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xl-7">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Pass/Fail</h6>
+                </div>
+                <div class="card-body">
+                  <div class="chart-area">
+                    <canvas id="myAreaChart"></canvas>
+                  </div>
+                  <hr>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-5">
+
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Average</h6>
+                </div>
+                <div class="card-body">
+                  <div class="chart-area">
+                    <canvas id="myAreaChart"></canvas>
+                  </div>
+                  <hr>
+                
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        
+      
+
+  </div>
+  
+
+</body>
+
+</html>

@@ -138,29 +138,17 @@
     <div class="site-section">
         <div class="container">
 
-<form action = "#register/" method= "post">
+<form action = "register/" method= "post">
   {%csrf_token%}
             <div class="row justify-content-center">
                 <div class="col-md-5">
                     <div class="row">
                         <div class="col-md-12 form-group">
-                            <label for="username">Name</label>
+                            <label for="username">Name </label>
                             <input type="text" name = "username" id="username" class="form-control form-control-lg">
                         </div>
-
-                        <div class="col-md-12 form-group">
-                          <label for="rollno">Roll Number</label>
-                          <input type="text" name = "rollno" id="rollno" class="form-control form-control-lg">
-                      </div>
-
-
-                      <div class="col-md-12 form-group">
-                        <label for="classid">4-Digit Class ID: </label>
-                        <input type="text" name = "classid" id="classid" class="form-control form-control-lg">
-                    </div>
-
-
-
+                       
+                      
                         <div class="col-md-12 form-group">
                             <label for="email">Email</label>
                             <input type="email" name = "email" id="email" class="form-control form-control-lg">
@@ -178,17 +166,17 @@
                             <input type="password" id="password2" name = "password2" class="form-control form-control-lg">
                         </div>
 
-			<p>Register as: </p>
-			 <label class="radio-inline" style = "margin-right:10px; margin-left:15px;">
-      				<input type="radio" name="usertype" value = "teacher">Teacher
+			
+			 <label hidden class="radio-inline" style = "margin-right:10px; margin-left:15px;">
+      				<input type="radio" name="usertype" value = "teacher" checked>Teacher
     			</label>
-   			 <label class="radio-inline">
+   			 <!--label class="radio-inline">
      				 <input type="radio" name="usertype" value = "student">Student
-    			</label>
+    			</label-->
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <input type="submit" value="Register" class="btn btn-primary btn-lg px-5">
+                            <input type="submit" name = 'register' value="Register" class="btn btn-primary btn-lg px-5">
                         </div>
                     </div>
                 </div>

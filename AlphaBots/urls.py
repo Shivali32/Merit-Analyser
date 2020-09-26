@@ -15,10 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include,re_path
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('MeritAnalyser.urls')),
-    re_path(r'^login',include('MeritAnalyser.urls')),
-    re_path(r'^register',include('MeritAnalyser.urls')),
+    re_path('login/',include('MeritAnalyser.urls')),
+    re_path('logout/',include('MeritAnalyser.urls')),
+    re_path('register/',include('MeritAnalyser.urls')),
+    re_path('register_teacher/',include('MeritAnalyser.urls')),
+    re_path('register_student/',include('MeritAnalyser.urls')),
+    re_path('random/',include('MeritAnalyser.urls')),
+    re_path('create_test/',include('MeritAnalyser.urls')),
+    re_path('demodashboard/',include('MeritAnalyser.urls')),
+    path('show_report/<str:testid>/',include('MeritAnalyser.urls')),
 ]

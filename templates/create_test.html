@@ -138,57 +138,55 @@
     <div class="site-section">
         <div class="container">
 
-<form action = "#register/" method= "post">
+<form action = "create_test/" method= "post"  enctype="multipart/form-data">
   {%csrf_token%}
             <div class="row justify-content-center">
                 <div class="col-md-5">
                     <div class="row">
-                        <div class="col-md-12 form-group">
-                            <label for="username">Name</label>
-                            <input type="text" name = "username" id="username" class="form-control form-control-lg">
-                        </div>
 
+                      
                         <div class="col-md-12 form-group">
-                          <label for="rollno">Roll Number</label>
-                          <input type="text" name = "rollno" id="rollno" class="form-control form-control-lg">
+                            <label for="testname">Test Name </label>
+                            <input type="text" name = "testname" id="testname" class="form-control form-control-lg">
+                        </div>
+                       
+                        <div class="col-md-12 form-group">
+                          <label for="teacherid">Teacher ID </label>
+                          <input type="text" name = "teacherid" id="teacherid" class="form-control form-control-lg">
                       </div>
 
-
                       <div class="col-md-12 form-group">
-                        <label for="classid">4-Digit Class ID: </label>
-                        <input type="text" name = "classid" id="classid" class="form-control form-control-lg">
+                        <label for="maxmarks">Max Marks </label>
+                        <input type="text" name = "maxmarks" id="maxmarks" class="form-control form-control-lg">
                     </div>
 
+                    <div class="col-md-12 form-group">
+                      <label for="passingmarks">Passing Marks </label>
+                      <input type="text" name = "passingmarks" id="passingmarks" class="form-control form-control-lg">
+                  </div>
+                    
+
+                  <div class="col-md-12 form-group">
+                    <label for="classname">Class Name</label>
+                    <input type="text" name = "classname" id="classname" class="form-control form-control-lg">
+                </div>
 
 
-                        <div class="col-md-12 form-group">
-                            <label for="email">Email</label>
-                            <input type="email" name = "email" id="email" class="form-control form-control-lg">
-                        </div>
-			<div class="col-md-12 form-group">
-                            <label for="phone">Phone No:</label>
-			<input type="tel" id="phone" name="phone"  class="form-control form-control-lg">
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <label for="pword">Password</label>
-                            <input type="password" id="password" name = "password" class="form-control form-control-lg">
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <label for="pword2">Re-type Password</label>
-                            <input type="password" id="password2" name = "password2" class="form-control form-control-lg">
-                        </div>
+                <div class="col-md-12 form-group">
+                  <label for="username">Upload CSV</label>
+                  <input type = "file" name ="document" >
+              </div>
 
-			<p>Register as: </p>
-			 <label class="radio-inline" style = "margin-right:10px; margin-left:15px;">
-      				<input type="radio" name="usertype" value = "teacher">Teacher
-    			</label>
-   			 <label class="radio-inline">
+                
+
+
+   			 <!--label class="radio-inline">
      				 <input type="radio" name="usertype" value = "student">Student
-    			</label>
+    			</label-->
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <input type="submit" value="Register" class="btn btn-primary btn-lg px-5">
+                            <input type="submit" name = 'register' value="Register" class="btn btn-primary btn-lg px-5">
                         </div>
                     </div>
                 </div>

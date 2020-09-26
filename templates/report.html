@@ -7,6 +7,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  <meta data-rh="true" property="og:title" content="Hey, Check This Amazing Analytics Report ">
+  <meta data-rh="true" property="og:description" content= "Upload a CSV and get an Analytics Report Right AWAY !">
+  <meta  data-rh="true" property="og:image" content="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1420&q=80">
+  <meta  data-rh="true" property="og:url" content="http://www.hsalphabots.herokuapp.com/show_report/{{testid}}">
+
+
 
   <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet">
   <link rel="stylesheet" href="{%static 'fonts/icomoon/style.css'%}">
@@ -147,7 +153,7 @@
             <div class="col-xl-7">
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Pass/Fail</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Present-Absent</h6>
                 </div>
                 <div class="card-body">
                   {{absent_plot|safe}}
@@ -160,10 +166,10 @@
 
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Student Records</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Pass-Fail</h6>
                 </div>
                 <div class="card-body">
-                  {{grade_plot|safe}}
+                  {{passfail|safe}}
                   <hr>
                  
                 </div>
@@ -177,7 +183,7 @@
             
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Distplots</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Grades vs Number of Students</h6>
                 </div>
                 <div class="card-body">
                   {{grade_plot|safe}}
@@ -193,7 +199,7 @@
             <div class="col-xl-7">
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Average</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Overall Performance</h6>
                 </div>
                 <div class="card-body">
                   {{avg_plot|safe}}
@@ -206,25 +212,25 @@
 
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Absent/Fail</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Student Record</h6>
                 </div>
-                <div class="card-body">
-                  {{grade_plot|safe}}
+                
+                  {{table|safe}}
                   <hr>
                 
-                </div>
+                
               </div>
             </div>
           </div>
-
+          <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://hsalphabots.herokuapp.com/show_report/{{testid}}/" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-users"></span> Share On Linkedin</a>
         </div>
         
       
 
   </div>
   
-      <!-- End of Main Content -->
 
+      <!-- End of Main Content -->
   </div>
   <!-- End of Page Wrapper -->
 

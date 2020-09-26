@@ -52,10 +52,21 @@
           <div class="col-lg-9 d-none d-lg-block">
             <a href="#" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> Have a questions?</a> 
             <a href="#" class="small mr-3"><span class="icon-phone2 mr-2"></span> 1234567890</a> 
-            <a href="#" class="small mr-3"><span class="icon-envelope-o mr-2"></span> alphabots@email.com</a> 
+            
+          <a href="#" class="small mr-3"><span class="icon-envelope-o mr-2"></span> noone@email.com</a> 
+				
+            
           </div>
           <div class="col-lg-3 text-right">
-            <a href="/login#" class="small mr-3"><span class="icon-unlock-alt"></span> Log In</a>
+
+            {% if user.is_authenticated %}
+            <a href="/login#" class="small mr-3"><span class="icon-unlock-alt"></span> Log Out</a>
+					{% else %}
+					<<a href="/login#" class="small mr-3"><span class="icon-unlock-alt"></span> Log In</a>
+          {%endif%}
+          
+
+            
             <a href="/register" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-users"></span> Register</a>
           </div>
         </div>
@@ -84,7 +95,7 @@
                   </ul>
                 </li>
                 <li>
-                  <a href="dashboard.html" class="nav-link text-left">Dashboard</a>
+                  <a href="/create_test#" class="nav-link text-left">Dashboard</a>
                 </li>
                 <li class="has-children">
                   <a href="#" class="nav-link text-left">Our topics</a>
