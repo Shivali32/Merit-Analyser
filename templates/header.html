@@ -11,7 +11,7 @@
   
     <link rel="stylesheet" href="{%static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{%static 'css/jquery-ui.css' %}">
-  <!--
+  
     <link rel="stylesheet" href="{%static 'css/owl.theme.default.min.css' %}">
     <link rel="stylesheet" href="{%static 'css/owl.theme.default.min.css' %}">
   
@@ -19,7 +19,7 @@
   
     <link rel="stylesheet" href="{%static 'css/bootstrap-datepicker.css' %}">
         <link rel="stylesheet" href="{%static 'css/aos.css' %}">
-  <link href="{%static 'css/jquery.mb.YTPlayer.min.css' %}" media="all" rel="stylesheet" type="text/css">-->
+  <link href="{%static 'css/jquery.mb.YTPlayer.min.css' %}" media="all" rel="stylesheet" type="text/css">
   
   <link rel="stylesheet" href="{%static 'css/owl.carousel.min.css' %}">
   <link rel="stylesheet" href="{%static 'fonts/flaticon/font/flaticon.css' %}">
@@ -31,13 +31,13 @@
 
     <div class="site-wrap">  
   
-      <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+      <header class="site-navbar js-sticky-header site-navbar-target" role="banner">
   
         <div class="container">
           <div class="d-flex align-items-center">
             <div class="site-logo">
               <a href="/" class="d-block">
-                <img src="{%static 'images/AlphaBots.png' %}" alt="Image" class="img-fluid" style="width:90px;">
+                <img src="{%static 'images/AlphaBots.png' %}" alt="Image" class="img-fluid" style="width:150px;">
               </a>
             </div>
             <div class="mr-auto">
@@ -47,18 +47,23 @@
                     <a href="/" class="nav-link text-left">Home</a>
                   </li>
                   <li>
-                    <a href="#" class="nav-link text-left">Dashboard</a>
+                    <a href="/create_test#" class="nav-link text-left">Dashboard</a>
                   </li>
-                  <li>
+                <!--  <li>
                       <a href="/contact" class="nav-link text-left">Contact</a>
-                    </li>
+                  </li>-->
                 </ul>                                                                                                                                                                                                                                                                                          </ul>
               </nav>
   
             </div>
            
             <div class="col-lg-3 text-right">
+              {% if user.is_authenticated %}
+                <a href="/login#" class="small mr-3"><span class="icon-unlock-alt"></span> Log Out</a>
+              {% else %}
                 <a href="/login#" class="small mr-3"><span class="icon-unlock-alt"></span> Log In</a>
+              {%endif%}
+
                 <a href="/register" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-users"></span> Register</a>
               </div>
 
@@ -70,19 +75,13 @@
 
 
 <script src="{%static 'js/jquery-3.3.1.min.js' %}"></script>
-<!--
 <script src="{%static 'js/jquery-ui.js' %}"></script>
 <script src="{%static 'js/popper.min.js' %}"></script>
 <script src="{%static 'js/bootstrap.min.js' %}"></script>
-
-
-
 <script src="{%static 'js/bootstrap-datepicker.min.js' %}"></script>
 <script src="{%static 'js/jquery.easing.1.3.js' %}"></script>
-
 <script src="{%static 'js/jquery.fancybox.min.js' %}"></script>
-
-<script src="{%static 'js/jquery.mb.YTPlayer.min.js' %}"></script>-->
+<script src="{%static 'js/jquery.mb.YTPlayer.min.js' %}"></script>
 <script src="{%static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
 <script src="{%static 'js/owl.carousel.min.js' %}"></script>
 <script src="{%static 'js/jquery.stellar.min.js' %}"></script>
@@ -94,8 +93,6 @@
 <script src="{%static 'js/chart-area-demo.js' %}"></script>
 <script src="{%static 'js/chart-pie-demo.js' %}"></script>
 <script src="{%static 'js/chart-bar-demo.js' %}"></script>
-
-
 
 <script src="{%static 'js/main.js' %}"></script>
 

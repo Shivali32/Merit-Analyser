@@ -747,6 +747,8 @@ h1, h2, h3, h4, h5,
     text-align: center;
     width: 40px;
     height: 40px;
+    border-radius: 50%;
+    opacity: 50%;
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
@@ -797,6 +799,8 @@ h1, h2, h3, h4, h5,
     text-align: center;
     width: 40px;
     height: 40px;
+    border-radius: 50%;
+    opacity: 70%;
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
@@ -1086,3 +1090,20 @@ h1, h2, h3, h4, h5,
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
+
+
+    .fade-up { 
+      animation: fadeInAnimation ease 2s; 
+      animation-iteration-count: 1; 
+      animation-fill-mode: forwards; 
+    } 
+    @keyframes fadeInAnimation { 
+      0% { 
+          opacity: 0; 
+          transform: translate(0, 50%);
+      } 
+      100% { 
+          opacity: 1;
+          transform: translateX(0); 
+      } 
+    } 
