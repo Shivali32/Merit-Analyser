@@ -10,5 +10,7 @@ urlpatterns = [
     re_path('random/',views.random_func),
     re_path('create_test/',views.create_test),
     re_path('demodashboard/',views.demodashboard),
+    re_path('ReportCard/',views.ReportCard),
+
     path('show_report/<str:testid>/',views.show_report),
 ]

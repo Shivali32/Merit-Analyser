@@ -29,5 +29,7 @@ urlpatterns = [
     re_path('random/',include('MeritAnalyser.urls')),
     re_path('create_test/',include('MeritAnalyser.urls')),
     re_path('demodashboard/',include('MeritAnalyser.urls')),
+    re_path('ReportCard/',include('MeritAnalyser.urls')),
+
     path('show_report/<str:testid>/',include('MeritAnalyser.urls')),
 ]

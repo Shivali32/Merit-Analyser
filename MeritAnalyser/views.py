@@ -19,6 +19,13 @@ import os
 import plotly.io as pio
 import plotly.express as px
 from django.core.files.storage import FileSystemStorage
+import qrcode
+from PIL import Image
+import plotly.graph_objects as go
+from PIL import ImageFont
+from PIL import ImageDraw 
+import matplotlib.pyplot as plt
+import plotly.express as px
 
 import random
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -333,3 +340,67 @@ def show_report(request,testid):
     table = showtable(df)
     plot_dict = {'absent_plot':absent_plot,'grade_plot':grade_plot,'avg_plot':avg_plot,'passfail':passfail,'table':table,'testid':testid}
     return render(request,'report.html',plot_dict)
+
+
+
+def ReportCard(request):
+    studentID="A2AUVRD5EC"
+    firstName = Student.objects.filter(student_id=studentID)[0]
+    print(firstName)
+    #Pass link for qr code,First name,lastname,studentid or roll numebr
+    generateReportCard("LINK","Nikhil","Kulkarni",studentID)
+    return render(request,'ReportCard.html')
+
+
+def generate(studentURL,name,studentSurname,studentId):
+    qr = qrcode.QRCode(
+    version=1,
+    error_correction=qrcode.constants.ERROR_CORRECT_L,
+    box_size=10,
+    border=4,
+    )
+    qr.add_data(studentURL)
+    qr.make(fit=True)
+    img1 = qr.make_image(fill_color="black", back_color="white")
+
+    img = Image.open("MeritAnalyser/static/images/charts/template.jpg")
+    draw = ImageDraw.Draw(img)
+    font = ImageFont.truetype("MeritAnalyser/static/images/charts/arial.ttf", 30)
+    draw.text((65, 400),name,(10,90,100),font=font)
+    draw.text((65, 525),studentSurname,(10,90,100),font=font)
+    draw.text((65, 650),str(studentId),(10,90,100),font=font)
+
+    
+    return img1,img
+
+
+def merge_img(ReportCard, QRcode):
+    layer = Image.new('RGBA', ReportCard.size, (0,0,0,0))
+    QRcode = QRcode.resize((150, 150))
+    layer.paste(QRcode, (100, 900))
+    piechart= Image.open("MeritAnalyser/static/images/charts/fig1.png")
+    piechart = piechart.resize((350, 350))
+
+    layer.paste(piechart,(450,40))
+    graph1= Image.open("MeritAnalyser/static/images/charts/fig2.png")
+    graph1 = graph1.resize((350, 350))
+
+    layer.paste(graph1,(450,440))
+
+
+    graph2= Image.open("MeritAnalyser/static/images/charts/fig3.png")
+    graph2 = graph2.resize((350, 350))
+
+    layer.paste(graph2,(450,820)) 
+
+    return Image.composite(layer, ReportCard, layer)
+
+
+
+def generateReportCard(studentURL,studentName,studentLastName,RollNumber):
+    #generate Charts here and save in MeritAnalyser/static/images/charts as fig1,fig2,fig3
+    QRcode,ReportCard=generate(studentURL,studentName,studentLastName,RollNumber)
+    img = merge_img(ReportCard, QRcode)
+    img.save('MeritAnalyser/static/images/ReportCards/ReportCard'+str(RollNumber)+'.jpg')
+
+    return
