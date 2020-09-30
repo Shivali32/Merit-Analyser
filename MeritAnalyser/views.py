@@ -366,9 +366,9 @@ def generate(studentURL,name,studentSurname,studentId):
     img = Image.open("MeritAnalyser/static/images/charts/template.jpg")
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("MeritAnalyser/static/images/charts/arial.ttf", 30)
-    draw.text((65, 400),name,(10,90,100),font=font)
-    draw.text((65, 525),studentSurname,(10,90,100),font=font)
-    draw.text((65, 650),str(studentId),(10,90,100),font=font)
+    draw.text((65, 400),name,(0,0,0),font=font)
+    draw.text((65, 525),studentSurname,(0,0,0),font=font)
+    draw.text((65, 650),str(studentId),(0,0,0),font=font)
 
     
     return img1,img
