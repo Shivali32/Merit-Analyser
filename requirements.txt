@@ -12,3 +12,4 @@ passlib==1.7.2
 plotly==4.7.1
 pandas
 Pillow==2.2.2
+qrcode
