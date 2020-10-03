@@ -43,6 +43,42 @@ def showtable(df):
     return plot_div
 
 
+
+
+
+
+
+#Student Dashboard Plot
+def student_overall_graph(tests,studentmarks,averagemarks):
+    #tests=['sem1','sem2','sem3']
+    #studentmarks=[11,25,30]
+    #averagemarks=[5,5,5]
+    fig = go.Figure(data=[
+    go.Bar(name='Student Score', x=tests, y=studentmarks),
+    go.Bar(name='Average SCore', x=tests, y=averagemarks)])
+    # Change the bar mode
+    fig.update_layout(barmode='group')
+    plot_div = plot(fig,output_type='div',include_plotlyjs=True)
+    return plot_div
+    #fig.show()
+
+
+#Student Dashboard Plot
+def show_pass_fail_piechart(number_passed, number_failed):
+    d={"labels":["Passed","Failed"],"values":[number_passed,number_failed]}
+
+    '''def diction(x):
+                    if x==0:
+                        d["values"][0]+=1
+                    else:
+                        d["values"][1]+=1
+                    return
+                df=df['Present'].apply(diction)'''
+    fig = go.Figure(data=[go.Pie(labels=d["labels"], values=d["values"], hole=.3)])
+    plot_div = plot(fig,output_type='div',include_plotlyjs=True)
+    return plot_div
+
+
 def showPassFail(df,passing_marks):
     d={"labels":["Pass","Fail"],"values":[0,0]}
     print('**************PASSING MARKS RECEIVED: ',passing_marks)
@@ -107,7 +143,7 @@ def showAveragePieChart(df):
 
 
     plot_div = plot(fig,output_type='div',include_plotlyjs=True)
-    return plot_div
+    return plot_div,averageMarks,highestMark
 
 def showAbsentPieChart(df):
     d={"labels":["Absent","Present"],"values":[0,0]}
@@ -247,6 +283,7 @@ def register(request):
 
             return redirect('login.html')
         elif usertype == 'teacher':
+            print('*******TEACHER PASSWORD IS: ',password_enc)
             teacher_object = Teacher(teacher_name=username,teacher_id = user_id, teacher_email=email, teacher_password=password_enc, teacher_contact=phone )
             teacher_object.save()
             print('TEACHER OBJECT SAVED')
@@ -259,7 +296,7 @@ def register_student(request):
     return render(request, 'register_as_student.html')
 
 def register_teacher(request):
-    print('********************************************************************you have called register_as_teacher')
+    
     return render(request,'register_as_teacher.html')
 
 
@@ -295,22 +332,46 @@ def create_test(request):
         print(filename_gen)
         randomnumber = str(random.randint(1000,9999))
 
-        filename = filename_gen[0]+randomnumber+'.'+filename_gen[1]
+        filename = testid+'.'+filename_gen[1]
 
         fs.save(filename,uploaded_file)
 
         test_object = Test(test_id = testid, test_name=testname, max_marks=max_marks, passing_marks=passing_marks, class_assigned = class_found,teacher_id=teacher_obj,csv_filename=filename)
         #print(os.path.join(BASE_DIR,'media'))
-        test_object.save()
+        
         df = pd.read_csv (os.path.join(BASE_DIR,'media')+'\\'+filename)
         #Remove absent students and show the piechart
         absent_plot = showAbsentPieChart(df)
+
+        
+
+
+        zip_object = zip(list(df.Name),list(df.Present),list(df.Marks))
+        for email,present,marks in zip_object:
+            target_student = Student.objects.all().filter(student_email = email)[0]
+            target_student.update_test(testid)
+            target_student.save()
+            if present=='0':
+                # if absent, update marks as '0'
+                test_object.update_marks(target_student.student_id,'0')
+            else:
+                #else update actual marks
+                test_object.update_marks(target_student.student_id,marks)
+
         df=df[df.Present != 0]
         #Show Grade Bar Graph
         grade_plot = showGradeBargraph(df)
         #Show Average pie chart
-        avg_plot = showAveragePieChart(df)
+        
+        overall_details = showAveragePieChart(df)
+        avg_plot = overall_details[0]
+        test_object.set_marks_details(overall_details[1],overall_details[2])
+        test_object.save()
         passfail = showPassFail(df,int(passing_marks))
+
+
+
+
 
         table = showtable(df)
         plot_dict = {'absent_plot':absent_plot,'grade_plot':grade_plot,'avg_plot':avg_plot,'passfail':passfail,'table':table,'testid':testid}
@@ -320,7 +381,47 @@ def create_test(request):
 
 def demodashboard(request):
     return render(request, 'dashboard.html')
+def dashboard_student(request):
+    target_student = Student.objects.all().filter(student_id = 'C254DHDH6B')[0]
+    rollno = target_student.student_rollno
+    studentid = target_student.student_id
+    student_name = target_student.student_name
+    student_class = target_student.student_classid.class_name 
+    tests = target_student.tests_assigned
+    marks = []
+    average_marks = []
+    testnames = []
+    number_passed = 0
+    number_failed = 0
 
+    percents = 0
+    #average_percent = 0
+
+    for x in tests:
+        test_object = Test.objects.all().filter(test_id=x)[0]
+
+
+        marks_obtained = int(test_object.get_marks_by_id(studentid))
+        marks.append(marks_obtained)
+        pass_marks = test_object.passing_marks
+        if marks_obtained > pass_marks:
+            number_passed+=1
+        else:
+            number_failed+=1
+
+        percents += ((marks_obtained/int(test_object.max_marks))*100)
+
+        average_marks.append(int(test_object.average_marks))
+        testnames.append(test_object.test_name)
+    
+    percents = int(percents/len(testnames))
+    
+    plot_overall = student_overall_graph(testnames,marks,average_marks)
+    
+    pass_fail = show_pass_fail_piechart(number_passed,number_failed)
+
+    context = {'plot_overall': plot_overall,'upid': 'C254DHDH6B','rollno':rollno,'student_name':student_name,'student_class':student_class,'pass_fail':pass_fail,'percents':percents}
+    return render(request, 'dashboard_student.html',context)
 def show_report(request,testid):
     test_object = Test.objects.all().filter(test_id  =testid)[0]
     filename = test_object.csv_filename
@@ -343,13 +444,33 @@ def show_report(request,testid):
 
 
 
-def ReportCard(request):
-    studentID="A2AUVRD5EC"
-    firstName = Student.objects.filter(student_id=studentID)[0]
-    print(firstName)
-    #Pass link for qr code,First name,lastname,studentid or roll numebr
-    generateReportCard("LINK","Nikhil","Kulkarni",studentID)
-    return render(request,'ReportCard.html')
+def generate_report(request):
+    
+    if request.user.is_authenticated:
+        
+        print(request.user)
+        #print(request.user.user_type)
+        
+        studentID=request.user
+        if len(Student.objects.filter(student_id=studentID))==0:
+            return HttpResponse("No ReportCard for Your Auth Type")
+        else:
+            student_object = Student.objects.filter(student_id=studentID)[0]
+            generateReportCard("https://hsalphabots.herokuapp.com/showstudentreport/"+studentID,student_object.student_name,student_object.student_name,student_object.student_id)
+            print('Student ID is ',student_object.student_id)
+            context = {'report_path':student_object.student_id}
+            return render(request,'ReportCard.html',context)
+
+def show_student_report(request,studentid):
+    studentID=studentid
+    if len(Student.objects.filter(student_id=studentID))==0:
+        return HttpResponse("No ReportCard Since User is Not Registered")
+    else:
+        student_object = Student.objects.filter(student_id=studentID)[0]
+        generateReportCard("https://hsalphabots.herokuapp.com/showstudentreport/"+studentID,student_object.student_name,student_object.student_name,student_object.student_id)
+        print('Student ID is ',student_object.student_id)
+        context = {'report_path':student_object.student_id}
+        return render(request,'ReportCard.html',context)
 
 
 def generate(studentURL,name,studentSurname,studentId):
@@ -397,10 +518,21 @@ def merge_img(ReportCard, QRcode):
 
 
 
-def generateReportCard(studentURL,studentName,studentLastName,RollNumber):
+def generateReportCard(studentURL,studentName,studentLastName,studentid):
     #generate Charts here and save in MeritAnalyser/static/images/charts as fig1,fig2,fig3
-    QRcode,ReportCard=generate(studentURL,studentName,studentLastName,RollNumber)
+    QRcode,ReportCard=generate(studentURL,studentName,studentLastName,studentid)
     img = merge_img(ReportCard, QRcode)
-    img.save('MeritAnalyser/static/images/ReportCards/ReportCard'+str(RollNumber)+'.jpg')
+    img.save('MeritAnalyser/static/images/ReportCards/ReportCard'+studentid+'.jpg')
 
     return
+
+
+
+
+
+
+
+def logout_request(request):
+    logout(request)
+    #messages.info(request, "Logged out successfully!")
+    return redirect("/")

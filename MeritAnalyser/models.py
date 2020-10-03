@@ -4,7 +4,9 @@ from passlib.hash import pbkdf2_sha256
 from django_mysql.models import ListCharField
 from django.contrib.auth.models import User
 
+
 class UserDetails(User):
+    
     #username = models.CharField(db_index=True,max_length = 100)
     user_id = models.CharField(unique=True,db_index=True,max_length = 10)
     #email = models.EmailField(unique = True,db_index = True)
@@ -33,7 +35,7 @@ class Teacher(models.Model):
 
     teacher_email = models.EmailField(db_index  =True,unique = True)
 
-    teacher_password = models.CharField(max_length=300)
+    teacher_password = models.CharField(max_length=500)
 
     teacher_contact = models.CharField(max_length = 10)
     #teacher_gender = models.CharField(max_length = 6)
@@ -67,7 +69,7 @@ class Student(models.Model):
 
     student_email = models.EmailField(db_index  =True,unique = True)
 
-    student_password = models.CharField(max_length=300)
+    student_password = models.CharField(max_length=500)
 
     #student_gender = models.CharField(max_length = 6)
     
@@ -76,12 +78,9 @@ class Student(models.Model):
     #student_classid = models.ForeignKey(Class,on_delete=models.CASCADE)
     student_classid = models.ForeignKey(Class,on_delete=models.CASCADE)
     student_contact = models.CharField(max_length = 10)
-    # A student can be assigned maximum 999 number of tests only
-    tests_assigned = ListCharField(
-        base_field=models.CharField(max_length=20),
-        size=999,
-        max_length=(999 * 21)  # 999 * 10 character nominals, plus commas
-    )
+
+    # A student can be assigned maximum 99999 number of tests only
+    tests_assigned = ListCharField(models.CharField(max_length=20),max_length = 99999)
     
     # for password verification during login
     def verify_password(self,raw_pwd):
@@ -90,8 +89,15 @@ class Student(models.Model):
     def str(self):
         return self.student_name
 
+    def update_test(self, testname):
+        self.tests_assigned.append(testname)
+
 
 class Test(models.Model):
+    # maximum of 99999 students can give a test
+    student_ids =  ListCharField(models.CharField(max_length=20),max_length = 99999)
+
+    student_marks  = ListCharField(models.CharField(max_length=20),max_length = 99999)
 
     test_id = models.CharField(unique=True,db_index= True,max_length=10)
 
@@ -106,12 +112,21 @@ class Test(models.Model):
     # Maximum 999 number of students can be assigned a test, check if Size can be removed.
     class_assigned = models.ForeignKey(Class,on_delete=models.CASCADE)
 
+    highest_marks = models.IntegerField(default=0)
+    average_marks = models.IntegerField(default = 0)
+
 
     def str(self):
         return self.test_id+self.teacher_id+self.subject_id
+
+    def set_marks_details(self, average_marks,highest_marks):
+        self.average_marks = average_marks
+        self.highest_marks = highest_marks
+
+    def update_marks(self, studentid, marks):
+        self.student_ids.append(str(studentid))
+        self.student_marks.append(str(marks))
     
-'''class TeacherReports(models.Model):
-    filename = models.CharField(max_length =20,null=False)
-    report_id =models.CharField(max_length = 10, null=False)
-    test_name = models.CharField(max_length = 30, null= False)
-    plots = {}'''
+    def get_marks_by_id(self,studentid):
+        index_find = self.student_ids.index(studentid)
+        return self.student_marks[index_find]

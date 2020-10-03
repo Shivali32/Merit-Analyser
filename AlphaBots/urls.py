@@ -30,6 +30,10 @@ urlpatterns = [
     re_path('create_test/',include('MeritAnalyser.urls')),
     re_path('demodashboard/',include('MeritAnalyser.urls')),
     re_path('ReportCard/',include('MeritAnalyser.urls')),
+    re_path('logout_request/',include('MeritAnalyser.urls')),
+
+    path('showstudentreport/<str:studentid>/',include('MeritAnalyser.urls')),
 
     path('show_report/<str:testid>/',include('MeritAnalyser.urls')),
+    path('dashboard_student/',include('MeritAnalyser.urls')),
 ]

@@ -28,32 +28,26 @@
             <div class="col-xl-7">
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Student records</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Student Details</h6>
                 </div>
                 <div class="card-body">
-                  <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
-                  </div>
-                  <hr>
-                  
+                  <div class = "row">
+                  <div class = " col-xs-6 mr-5 ">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>Name:</b>{{student_name}}</li>
+                    <li class="list-group-item"><b>Class:</b> {{student_class}}</li>
+                    <li class="list-group-item"><b>Roll Number:</b> {{rollno}}</li>
+                    <li class="list-group-item"><b>Unique Portal ID:</b> {{upid}}</li>
+                  </ul>
+                </div>
+                <div class = "col-xs-6 ml-5">
+                  <img src = "{% static '/images/studentimg.jpg' %}" style = "height:210px;">
+                </div>
+              </div>
                 </div>
               </div>
             </div>
-            <div class="col-xl-5">
-
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Std img</h6>
-                </div>
-                <div class="card-body">
-                  <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
-                  </div>
-                  <hr>
-                 
-                </div>
-              </div>
-            </div>
+      
           </div>
           
           <div class="row">
@@ -62,13 +56,10 @@
             
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Subject Name Tests</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Progress Report Analysis</h6>
                 </div>
                 <div class="card-body">
-                  <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
-                  </div>
-                  <hr>
+                  {{plot_overall|safe}}
                   
                 </div>
               </div>
@@ -80,12 +71,10 @@
             <div class="col-xl-7">
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Pass/Fail</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Pass/Fail Percentages</h6>
                 </div>
                 <div class="card-body">
-                  <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
-                  </div>
+                  {{pass_fail|safe}}
                   <hr>
                   
                 </div>
@@ -95,12 +84,23 @@
 
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Average</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Average Student Score(%) </h6>
                 </div>
                 <div class="card-body">
-                  <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
-                  </div>
+
+
+                 
+
+                  <div class="col-10 " style="text-align: center;">
+                    <label >
+                       <h1>{{percents}}</h1>
+                    </label>
+                    <label>
+                       <h5 class="text-muted">%</h5>
+                    </label>
+                   
+                 </div>
+
                   <hr>
                 
                 </div>

@@ -10,7 +10,10 @@ urlpatterns = [
     re_path('random/',views.random_func),
     re_path('create_test/',views.create_test),
     re_path('demodashboard/',views.demodashboard),
-    re_path('ReportCard/',views.ReportCard),
-
+    re_path('ReportCard/',views.show_report),
+    re_path('logout_request',views.logout_request),
     path('show_report/<str:testid>/',views.show_report),
+    path('showstudentreport/<str:studentid>/',views.show_student_report),
+    path('dashboard_student/',views.dashboard_student),
+    
 ]
