@@ -17,6 +17,9 @@ Project Team Members:
 <p align="center">
   <img src="Output/ss5 (1).png" width="650" >
   </p>
+  <p align="center">
+  <img src="Output/ss13.png" width="650" >
+  </p>
 <h2>Home Page</h2>
 <p align="center">
   <img src="Output/ss2.png" width="650" >
@@ -39,14 +42,17 @@ Project Team Members:
 <p align="center">
   <img src="Output/ss11.png" width="650" >
   </p>
+  <p align="center">
+  <img src="Output/ss12.png" width="650" >
+  </p>
 
 
 <h2>Digital Report Card</h2>
 <p align="center">
-  <img src="Output/ss1.png" width="650" >
+  <img src="Output/ss14.png" width="650" >
   </p>
 
 <h2>Student Dashboard</h2>
 <p align="center">
-  <img src="Output/ss1.png" width="650" >
+  <img src="Output/ss11 (1).png" width="650" >
   </p>
